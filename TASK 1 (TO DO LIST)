@@ -1,0 +1,76 @@
+class TodoList:
+    def __init__(self):
+        self.tasks = []
+
+    def add_task(self, task):
+        self.tasks.append({'task': task, 'completed': False})
+        print(f'Added task: {task}')
+
+    def remove_task(self, task_number):
+        if 0 <= task_number < len(self.tasks):
+            removed_task = self.tasks.pop(task_number)
+            print(f'Removed task: {removed_task["task"]}')
+        else:
+            print(f'Error: Task number {task_number} does not exist.')
+
+    def update_task(self, task_number, new_task):
+        if 0 <= task_number < len(self.tasks):
+            self.tasks[task_number]['task'] = new_task
+            print(f'Updated task number {task_number} to: {new_task}')
+        else:
+            print(f'Error: Task number {task_number} does not exist.')
+
+    def complete_task(self, task_number):
+        if 0 <= task_number < len(self.tasks):
+            self.tasks[task_number]['completed'] = True
+            print(f'Completed task: {self.tasks[task_number]["task"]}')
+        else:
+            print(f'Error: Task number {task_number} does not exist.')
+
+    def list_tasks(self):
+        if not self.tasks:
+            print('No tasks in the to-do list.')
+        else:
+            for i, task in enumerate(self.tasks):
+                status = 'Done' if task['completed'] else 'Not Done'
+                print(f'{i}: {task["task"]} - {status}')
+
+def main():
+    todo_list = TodoList()
+
+    print("To-Do List Application")
+    print("Instructions: Enter the corresponding number for the action you want to take.")
+
+    while True:
+        print("\n1. Add Task")
+        print("2. Remove Task")
+        print("3. Update Task")
+        print("4. Complete Task")
+        print("5. List Tasks")
+        print("6. Exit")
+
+        choice = input("Enter your choice (1-6): ")
+
+        if choice == '1':
+            task = input("Enter the task: ")
+            todo_list.add_task(task)
+        elif choice == '2':
+            task_number = int(input("Enter the task number to remove: "))
+            todo_list.remove_task(task_number)
+        elif choice == '3':
+            task_number = int(input("Enter the task number to update: "))
+            new_task = input("Enter the new task: ")
+            todo_list.update_task(task_number, new_task)
+        elif choice == '4':
+            task_number = int(input("Enter the task number to complete: "))
+            todo_list.complete_task(task_number)
+        elif choice == '5':
+            todo_list.list_tasks()
+        elif choice == '6':
+            print("Exiting the application.")
+            break
+        else:
+            print("Invalid choice. Please enter a number between 1 and 6.")
+
+if __name__ == "__main__":
+    main()
